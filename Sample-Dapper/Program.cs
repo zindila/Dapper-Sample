@@ -28,6 +28,28 @@ namespace Sample_Dapper
             string deleteQuery = "DELETE FROM Employee WHERE EmpName = @EmpName;";
             conn.Execute(deleteQuery, new { EmpName = "Geo" });
 
+            // Retrieving employee 
+            string retrieveQuery = "SELECT * FROM Employee WHERE EmpName = @EmpName;";
+            var retrievedEmployee = conn.QueryFirstOrDefault<Employees>(retrieveQuery, new { EmpName = "mridual" });
+
+            // Printing retrieved employee details
+            if (retrievedEmployee != null)
+            {
+                Console.WriteLine($"Retrieved Employee: {retrievedEmployee.EmpName}, City: {retrievedEmployee.City}," +
+                    $" Salary: {retrievedEmployee.Salary}");
+
+                // Updating the salary of employee 
+                string updateQuery = "UPDATE Employee SET Salary = @Salary WHERE EmpName = @EmpName;";
+                int rowsAffected = conn.Execute(updateQuery, new { Salary = 10000, EmpName = "mridual" });
+
+                Console.WriteLine($"Rows updated: {rowsAffected}");
+            }
+            else
+            {
+                Console.WriteLine("Employee not found.");
+            }
+
+
         }
     }
 }
