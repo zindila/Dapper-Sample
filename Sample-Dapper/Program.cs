@@ -24,6 +24,10 @@ namespace Sample_Dapper
             string insertQuery = "INSERT INTO Employee (EmpName,City,Salary) VALUES (@EmpName, @City, @Salary);";
             conn.Execute(insertQuery, emp);
 
+            // Delete employee "Geo"
+            string deleteQuery = "DELETE FROM Employee WHERE EmpName = @EmpName;";
+            conn.Execute(deleteQuery, new { EmpName = "Geo" });
+
         }
     }
 }
